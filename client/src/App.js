@@ -1,13 +1,19 @@
 import React from 'react';
-import Editor from './components/Editor';
-import Navbar from './components/landingPage/Navbar';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomeBody from './components/homePage/HomeBody';
+import Login from './components/login/Login';
+import Register from './components/login/Register';
 
 function App() {
   return (
-    <div className="App">
-        <Navbar /> 
-        <Editor />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomeBody />}> </Route>
+        <Route path="/login" element={<Login />}> </Route>
+        <Route path="/register" element={<Register />}> </Route>
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 
