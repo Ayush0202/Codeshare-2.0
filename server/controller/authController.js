@@ -9,13 +9,21 @@ const registerUserDisplay = (req, res) => {
 }
 
 const registerUser = async (req, res) => {
+    
     const user = req.body
 
-    const newUser = new User(user)
-
     try {
-      await newUser.save()
-      res.status(201).json(newUser)
+
+        const existingUser = await User.findOne({email: user.email})
+        
+        if(existingUser) {
+            return res.status(409).json({ message: 'User already exists' });
+        }
+
+        const newUser = new User(user)
+        await newUser.save()
+        res.status(201).json(newUser)
+        
     } catch (error) {
         res.status(409).json({message: error.message})
     }
