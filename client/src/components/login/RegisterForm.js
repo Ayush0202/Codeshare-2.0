@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { registerUser } from '../../services/api'
 
+import './RegisterForm.css'
+
 // default values of form 
 const defaultValue = {
   name: '',
@@ -10,7 +12,30 @@ const defaultValue = {
   password: ''
 }
 
+// modal alert message
+const Alert = ({ message, onClose }) => {
+  return (
+    <div className="alert">
+      <div className="alert-content">
+        <div className="alert-message">{message}</div>
+        <button className="alert-close" onClick={onClose}>
+          Close
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const RegisterForm = () => {
+
+  // alert message
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+
+  // alert message
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
   
   // adding data to form
   const [user, setUser] = useState(defaultValue)
@@ -40,16 +65,20 @@ const RegisterForm = () => {
  
         console.log(error.message)
 
+        // custon validation error messages
         if(error.message === 'User already exists') {
-          alert('User already exist')
+          setAlertMessage('User already exists');
+          setShowAlert(true);
         }
 
-        if(error.message === 'Password is too small') {
-          alert('Password too small')
+        if(error.message === 'Password too small') {
+          setAlertMessage('Password is too small');
+          setShowAlert(true);
         }
 
         if(error.message === 'Invalid email') {
-          alert('Invalid Email')
+          setAlertMessage('Invalid Email');
+          setShowAlert(true);
         }
     }
   }
@@ -80,11 +109,16 @@ const RegisterForm = () => {
 
             <button type='submit'>Register</button>
 
-        </form>
+      </form>
 
-        <p>Already signed up? <Link to={'/login'}>Log in here</Link> </p> 
+      <p>Already signed up? <Link to={'/login'}>Log in here</Link> </p> 
 
-
+      {/* modal alert messages */}
+      {showAlert && (
+        <div className="alert-wrapper">
+          <Alert message={alertMessage} onClose={handleCloseAlert} />
+        </div>
+      )}
 
     </>
   )
