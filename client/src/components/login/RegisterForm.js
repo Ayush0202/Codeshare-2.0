@@ -84,30 +84,30 @@ const RegisterForm = () => {
   }
   
   return (
-    <>
+    <div className='form-container'>
       <form onSubmit={handleSubmit}>
             <div>
               <label >
-                Name: 
-                <input type="text" value={user.name} name='name' onChange={onValueChange} />
+                Name
+                <input type="text" value={user.name} name='name' onChange={onValueChange} className='input-field'  />
               </label>
             </div>
 
             <div>
               <label >
-                Email: 
-                <input type="text" value={user.email} name='email' onChange={onValueChange} />
+                Email
+                <input type="text" value={user.email} name='email' onChange={onValueChange} className='input-field' />
               </label>
             </div>
 
             <div>
               <label >
-                Password: 
-                <input type="password" value={user.password} name='password' onChange={onValueChange} />
+                Password 
+                <input type="password" value={user.password} name='password' onChange={onValueChange} className='input-field' autoComplete='off' />
               </label>
             </div>
 
-            <button type='submit'>Register</button>
+            <button type='submit' className='submit-button' >Register</button>
 
       </form>
 
@@ -120,7 +120,7 @@ const RegisterForm = () => {
         </div>
       )}
 
-    </>
+    </div>
   )
 }
 

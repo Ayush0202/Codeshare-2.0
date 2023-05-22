@@ -37,6 +37,7 @@ const registerUser = async (req, res) => {
             return res.status(409).json({message: 'Password too small'})
         }
 
+        // password hashed 
         const hashedPassword = await bcrypt.hash(user.password, 10)
 
         // no problems found in user data
