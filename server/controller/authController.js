@@ -1,4 +1,6 @@
 const User = require('../models/user')  
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const rootRouteMsg = (req, res) => {
     res.send('Hello From Server')
@@ -35,12 +37,21 @@ const registerUser = async (req, res) => {
             return res.status(409).json({message: 'Password too small'})
         }
 
+        const hashedPassword = await bcrypt.hash(user.password, 10)
+
         // no problems found in user data
         // proceed to save data in database
 
         // saving data in database
-        const newUser = new User(user)
+        const newUser = new User({
+            name: user.name, 
+            email: user.email,
+            password: hashedPassword
+        })
         await newUser.save()
+
+        const token = jwt.sign({userId: newUser._id}, `${process.env.SECRET_KEY}`)
+
         res.status(201).json(newUser) // data saved successfully
 
     } catch (error) {
