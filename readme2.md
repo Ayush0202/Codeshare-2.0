@@ -9,12 +9,13 @@
 - /id - New Page for Sharing
 - /settings - Profile Page
 
-## **Functionalities**
+## **Todo Functionalities**
 
 ### Registration
 - [x] Basic Registration 
-- [ ] Hashing Password
-- [ ] Login Validation (not allowing existing emails, wrong formats)
+- [x] Hashing Password
+- [x] Login Validation (not allowing existing emails, wrong formats)
+- [x] Add CSS
 
 ### Login
 - [ ] Basic Login
