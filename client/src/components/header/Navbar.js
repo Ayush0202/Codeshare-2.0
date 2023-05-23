@@ -32,6 +32,12 @@ const HomeNavbar = () => {
             </Nav>
           )}
 
+          {location.pathname === '/new' && (
+            <Nav className="d-flex">
+            <Nav.Link as={Link} to="/login">Save</Nav.Link>
+          </Nav>
+          )}
+
         </Container>
       </Navbar>
     </>
