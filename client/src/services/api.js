@@ -12,3 +12,13 @@ export const registerUser = async (data) => {
         throw error.response.data
     }
 }
+
+export const loginUser = async (data) => {
+    try {
+        const response = await axios.post(`${URL}/login`, data)
+        return response.data
+
+    } catch (error) {
+        throw error.response.data
+    }
+}

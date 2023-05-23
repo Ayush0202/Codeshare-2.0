@@ -6,10 +6,13 @@ const rootRouteMsg = (req, res) => {
     res.send('Hello From Server')
 }
 
+
 const registerUserDisplay = (req, res) => {
     res.send('Register Page - Backend')
 }
 
+
+// registering a new user
 const registerUser = async (req, res) => {
     
     const user = req.body
@@ -60,4 +63,48 @@ const registerUser = async (req, res) => {
     }
 }
 
-module.exports = { rootRouteMsg, registerUserDisplay, registerUser }
+
+const loginUserDisplay = (req, res) => {
+    res.send('Hello from Server Login route')
+}
+
+
+// login an existing user
+const loginUser = async (req, res) => {
+
+    const user = req.body;
+
+    try {
+        
+        // finding user with given email
+        const checkUser = await User.findOne({email: user.email})
+
+        // if user is not present in database
+        if(!user) {
+            return res.status(400).json({message: 'Invalid email or password'})
+        }
+
+        // comparing passwords
+        const isPasswordValid = await bcrypt.compare(user.password, checkUser.password)
+
+        // passwords do not match
+        if(!isPasswordValid) {
+            return res.status(400).json({message: 'Invalid email or password'})
+        }
+
+        // if password is correct
+        // generate a JWT token with user's ID as the payload
+        const token = jwt.sign({userId: checkUser._id}, `${process.env.SECRET_KEY}`)
+
+        // return token to client
+        res.json({token})
+
+    } catch (error) {
+        
+        res.status(500).json({message: error.message})
+
+    }
+
+}
+
+module.exports = { rootRouteMsg, registerUserDisplay, registerUser, loginUserDisplay, loginUser }
