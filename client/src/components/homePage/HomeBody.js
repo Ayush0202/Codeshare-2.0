@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "../header/Navbar";
+import Navbar from "../Header/Navbar";
 import HomeMain from "./HomeMain";
 import HomeFeatures from "./HomeFeatures";
-import Footer from "../header/Footer";
+import Footer from "../Header/Footer";
 import './HomeBodyStyle.css'
 
 const HomeBody = () => {
