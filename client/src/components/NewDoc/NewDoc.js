@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+
+// codemirror
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript"
 import { cpp } from '@codemirror/lang-cpp'
@@ -12,15 +15,27 @@ import { sql } from '@codemirror/lang-sql'
 import { xml } from '@codemirror/lang-xml'
 
 
-
+// navbar
 import Navbar from '../Header/Navbar'
+
+
+// api call
+import {saveNewCode} from '../../services/api'
+
+
+// default value for code
+const defaultValue = {
+    codeValue: ''
+}
 
 
 const NewDoc = () => {
 
+
     // getting screen height to set height of the editor
     const [screenHeight, setScreenHeight] = useState(window.innerHeight)
-    const [code, setCode] = useState('');
+    const [code, setCode] = useState(defaultValue);
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -35,25 +50,50 @@ const NewDoc = () => {
     }, [])
 
 
+    // navigating 
+    const navigate = useNavigate()
+
+
     // onchange value function for editor
     const onChangeValue = React.useCallback((value, viewUpdate) => {
-        setCode(value)
+        setCode({ ...code, codeValue: value });
         console.log(value)
-    }, [])
+    }, [code])
+
+
+    // handling submitting of document to database
+    const handleSubmit = async (e) => {
+
+        e.preventDefault()
+
+        try {
+
+            const response = await saveNewCode(code)
+            console.log(response)
+            setCode(defaultValue)
+            navigate('/login')
+
+        } catch (error) {
+            
+            console.log(error.message)
+
+        }
+    }
 
 
     return (
         <>
+            <form onSubmit={handleSubmit} >
 
-            <form >
-
+                {/* navbar component */}
                 <Navbar />
 
+                {/* editor component */}
                 <CodeMirror
-                    value={code}
+                    value={code.codeValue}
                     height={`${screenHeight}px`}
                     theme='dark'
-                    extensions={[
+                    extensions={[ // supporint different languages
                         javascript({jsx: true}),
                         cpp(),
                         css(),
@@ -68,7 +108,7 @@ const NewDoc = () => {
                     onChange={onChangeValue}
                     
                 />
-                    
+
             </form>
 
         </>

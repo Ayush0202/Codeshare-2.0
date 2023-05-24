@@ -1,7 +1,6 @@
-const { default: mongoose } = require('mongoose')
-const mognoose = require('mongoose')
+const mongoose = require('mongoose')
 
-const documentSchema = mognoose.Schema({
+const documentSchema = mongoose.Schema({
     value: {
         type: String,
         required: true
