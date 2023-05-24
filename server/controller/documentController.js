@@ -59,4 +59,18 @@ const getSavedCode = async (req, res) => {
     }
 }
 
-module.exports = { getAllUserCodes, saveNewCode, getSavedCode }
+
+// delete document from database
+const deleteSavedDocument = async (req, res) => {
+    try {
+        // deleting document based on id
+        await Document.deleteOne({_id: req.params.id})
+        // document deleted successfully
+        res.status(200).json({message: 'User Deleted Successfully'})
+    } catch (error) {
+        res.status(409).json({message: error.message})
+    }
+}
+
+
+module.exports = { getAllUserCodes, saveNewCode, getSavedCode, deleteSavedDocument }

@@ -4,8 +4,10 @@ import { Table, TableHead, TableBody, TableCell, TableRow, styled, Button } from
 
 import { Link } from 'react-router-dom'
 
-import { getAllDocuments } from '../../services/api'
+// frontend api call
+import { getAllDocuments, deleteDocument } from '../../services/api'
 
+// styles for table
 const Container = styled(Table)`
     width: 70%;
     margin: 50px auto 0 auto;
@@ -25,14 +27,42 @@ const TBody = styled(TableRow)`
     }
 `
 
+
+// modal alert message
+const Alert = ({ message, onClose }) => {
+    return (
+      <div className="alert">
+        <div className="alert-content">
+          <div className="alert-message">{message}</div>
+          <button className="alert-close" onClick={onClose}>
+            Close
+          </button>
+        </div>
+      </div>
+    );
+}
+
+
 const DashboardTable = () => {
 
+    // alert message
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+
+    // alert message
+    const handleCloseAlert = () => {
+        setShowAlert(false);
+    };
+
+    // document state
     const [documents, setDocuments] = useState([])
 
+    // getting all documents 
     useEffect(() => {
         getAllSavedDocuments()
     }, [])
 
+    // getting document and storing them 
     const getAllSavedDocuments = async () => {
         try {
             const response = await getAllDocuments()
@@ -42,9 +72,26 @@ const DashboardTable = () => {
         }
     }
 
+    // function to delete saved document
+    const deleteSavedDocument = async (id) => {
+        try {
+            const response = await deleteDocument(id)
+            console.log(response)
+            // message on success
+            if(response.message === 'User Deleted Successfully') {
+                setAlertMessage('Document Deleted');
+                setShowAlert(true);
+            }
+            getAllSavedDocuments()
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
 
     return (
-        
         <>
             <Container>
                 <TableHead>
@@ -57,8 +104,10 @@ const DashboardTable = () => {
                     </THead>
                 </TableHead>
 
+                {/* showing documents if present in database */}
+                {/* else showing message */}
                 <TableBody>
-                    {documents && documents.length > 0 ? (
+                    {documents && documents.length > 0 ? ( // ? operator
                         documents.map((document) => (
                         <TBody key={document._id}>
                             <TableCell>
@@ -70,28 +119,35 @@ const DashboardTable = () => {
                             <TableCell>{new Date(document.createdAt).toLocaleTimeString()}</TableCell>
                             <TableCell>Plain Text</TableCell>
                             <TableCell>
-                            <Button variant='' component={Link} to={'/new'}>
-                                Edit
-                            </Button>
-                            <Button variant='' component={Link} to={'/new'}>
+                            <Button variant='' onClick={() => deleteSavedDocument(document._id)}>
                                 Delete
                             </Button>
                             </TableCell>
                         </TBody>
                         ))
-                    ) : (
+                    ) : ( // : operator
                         <TBody>
-                        <TableCell colSpan={5}>No documents found</TableCell>
+                        <TableCell colSpan={5}  style={{
+                            textAlign: 'center', 
+                            fontFamily: 'monospace',
+                            fontWeight: 'bolder',
+                            fontSize: '20px'
+                        }}>
+                            No Documents Found
+                        </TableCell>
                         </TBody>
                     )}
                     </TableBody>
             </Container>
 
+             {/* modal alert messages */}
+            {showAlert && (
+                <div className="alert-wrapper">
+                <Alert message={alertMessage} onClose={handleCloseAlert} />
+                </div>
+            )}
+
         </>
-
-
-
-
     )
 }
 
