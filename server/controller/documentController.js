@@ -5,7 +5,7 @@ const Document = require('../models/document')
 // api to get all codes of a user on dashboard
 const getAllUserCodes = async (req, res) => {
     try {
-        const document = await Document.find({}).exec()
+        const document = await Document.find({}).sort({ createdAt: -1 })
         // console.log(document)
         res.status(200).json(document)
 

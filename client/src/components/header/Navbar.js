@@ -6,7 +6,7 @@ import {Link, useLocation } from 'react-router-dom'
 import { NavDropdown } from 'react-bootstrap';
 
 const HomeNavbar = () => {
-
+  
   const location = useLocation();
 
     return <>
@@ -33,7 +33,7 @@ const HomeNavbar = () => {
             </Nav>
           )}
 
-            {/* custom navbar for new document creation page */}
+          {/* custom navbar for new document creation page */}
           {location.pathname === '/new' && (
             <Nav className="d-flex">
             <button type='submit'>Save</button>

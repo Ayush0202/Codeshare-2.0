@@ -12,9 +12,9 @@ const Container = styled(Table)`
 `
 
 const THead = styled(TableRow)`
-    background: #111111;
+    background: #fff;
     & > th {
-        color: #fff;
+        color: #111;
         font-size: 20px;
     }
 `
@@ -62,7 +62,7 @@ const DashboardTable = () => {
                         documents.map((document) => (
                         <TBody key={document._id}>
                             <TableCell>
-                                <Link to={`/${document._id}`}>
+                                <Link to={`/${document._id}`} style={{ textDecoration: 'none' }}>
                                     {document._id}
                                 </Link>
                             </TableCell>
@@ -70,10 +70,10 @@ const DashboardTable = () => {
                             <TableCell>{new Date(document.createdAt).toLocaleTimeString()}</TableCell>
                             <TableCell>Plain Text</TableCell>
                             <TableCell>
-                            <Button variant='contained' component={Link} to={'/new'}>
+                            <Button variant='' component={Link} to={'/new'}>
                                 Edit
                             </Button>
-                            <Button variant='contained' component={Link} to={'/new'}>
+                            <Button variant='' component={Link} to={'/new'}>
                                 Delete
                             </Button>
                             </TableCell>
