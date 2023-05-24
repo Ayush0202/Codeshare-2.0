@@ -6,7 +6,8 @@
 - /register - Registration Page
 - /login - Login Page
 - /codes - Dashboard
-- /id - New Page for Sharing
+- /new - New page for sharing code
+- /id - code after saving to database
 - /settings - Profile Page
 
 ## **Todo Functionalities**
