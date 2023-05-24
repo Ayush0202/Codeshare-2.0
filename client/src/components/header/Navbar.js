@@ -22,6 +22,7 @@ const HomeNavbar = () => {
           </Nav>
           )}
 
+          {/* custom navbar for dashboard */}
           {location.pathname === '/codes' && (
             <Nav className="d-flex">
               <NavDropdown title="Ayush Kumar Gupta" id="basic-nav-dropdown">
@@ -32,9 +33,10 @@ const HomeNavbar = () => {
             </Nav>
           )}
 
+            {/* custom navbar for new document creation page */}
           {location.pathname === '/new' && (
             <Nav className="d-flex">
-            <Nav.Link as={Link} to="/login">Save</Nav.Link>
+            <button type='submit'>Save</button>
           </Nav>
           )}
 
