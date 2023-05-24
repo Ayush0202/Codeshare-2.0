@@ -3,8 +3,15 @@ const Document = require('../models/document')
 
 
 // api to get all codes of a user on dashboard
-const getAllUserCodes = (req, res) => {
-    res.send('Hello from /codes backend route')
+const getAllUserCodes = async (req, res) => {
+    try {
+        const document = await Document.find({}).exec()
+        // console.log(document)
+        res.status(200).json(document)
+
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
 }
 
 

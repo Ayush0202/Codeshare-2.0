@@ -53,3 +53,13 @@ export const getSavedDocument = async (id) => {
     }
 
 }
+
+export const getAllDocuments = async () => {
+    try {
+        const response = await axios.get(`${URL}/codes`)
+        return response.data
+
+    } catch (error) {
+        throw error.response.data
+    }
+}
