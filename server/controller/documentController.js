@@ -15,18 +15,41 @@ const saveNewCode = async (req, res) => {
     const data = req.body
 
     try {
-
+        // creating a new document
         const newDocument = new Document({
             value: data.codeValue
         })
 
+        // saving new document
         await newDocument.save()
 
+        // document saved
         res.status(201).json(newDocument)
         
     } catch (error) {
+        // document not saved
         res.status(400).json({message: error.message})
     }
 }
 
-module.exports = { getAllUserCodes, saveNewCode }
+
+// api to get saved code
+const getSavedCode = async (req, res) => {
+
+    // getting document based on id
+    const id = req.params.id
+
+    try {
+        // searching database based on document id
+        const document = await Document.findById(id)
+        // document found
+        // send document to client
+        res.status(201).json(document)
+
+    } catch (error) {
+        // document not found
+        res.status(400).json({message: error.message})
+    }
+}
+
+module.exports = { getAllUserCodes, saveNewCode, getSavedCode }

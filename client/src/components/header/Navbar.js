@@ -25,8 +25,8 @@ const HomeNavbar = () => {
           {/* custom navbar for dashboard */}
           {location.pathname === '/codes' && (
             <Nav className="d-flex">
-              <NavDropdown title="Ayush Kumar Gupta" id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/codes">New Codeshare</NavDropdown.Item>
+              <NavDropdown title="User Name" id="basic-nav-dropdown">
+                <NavDropdown.Item as={Link} to="/new">New Codeshare</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes">Account Settings</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes">Log Out</NavDropdown.Item>
               </NavDropdown>

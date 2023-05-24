@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react'
 
 // codemirror
 import CodeMirror from "@uiw/react-codemirror";
@@ -14,27 +13,24 @@ import { rust } from '@codemirror/lang-rust'
 import { sql } from '@codemirror/lang-sql'
 import { xml } from '@codemirror/lang-xml'
 
+// to get document using id
+import { useParams } from 'react-router-dom';
+
+// css file
+import './SavedDoc.css'
 
 // navbar
 import Navbar from '../Header/Navbar'
 
+// frontend api call
+import { getSavedDocument } from '../../services/api';
 
-// api call
-import {saveNewCode} from '../../services/api'
+const SavedDoc = () => {
 
-
-// default value for code
-const defaultValue = {
-    codeValue: ''
-}
-
-
-const NewDoc = () => {
-
+    const { id } = useParams()
 
     // getting screen height to set height of the editor
     const [screenHeight, setScreenHeight] = useState(window.innerHeight)
-    const [code, setCode] = useState(defaultValue);
 
 
     useEffect(() => {
@@ -50,47 +46,38 @@ const NewDoc = () => {
     }, [])
 
 
-    // navigating 
-    const navigate = useNavigate()
+    // setting code after getting from backend
+    // initially set to null
+    const [code, setCode] = useState(null)
 
-
-    // onchange value function for editor
-    const onChangeValue = React.useCallback((value, viewUpdate) => {
-        setCode({ ...code, codeValue: value });
-        console.log(value)
-    }, [code])
-
-
-    // handling submitting of document to database
-    const handleSubmit = async (e) => {
-
-        e.preventDefault()
-
-        try {
-
-            const response = await saveNewCode(code)
-            console.log(response)
-            setCode(defaultValue)
-            navigate(`/${response._id}`) // opening document after saving
-
-        } catch (error) {
-            
-            console.log(error.message)
-
+    // fetching data from backend
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const documentData = await getSavedDocument(id);
+            setCode(documentData);
+          } catch (error) {
+            console.error(error);
+          }
         }
-    }
+        fetchData();
+    }, [id]);
 
+    
+    if(!code) {
+        return <h1 className='saved-doc-loading-page'>Loading...</h1>
+    }
 
     return (
         <>
-            <form onSubmit={handleSubmit} >
+            {/* navbar component */}
+            <Navbar />
 
-                {/* navbar component */}
-                <Navbar />
+            <form >
 
                 {/* editor component */}
                 <CodeMirror
-                    value={code.codeValue}
+                    value={code.value} // dynamically saving value that is fetched from database
                     height={`${screenHeight}px`}
                     theme='dark'
                     extensions={[ // supporint different languages
@@ -105,14 +92,13 @@ const NewDoc = () => {
                         sql(),
                         xml()
                     ]}
-                    onChange={onChangeValue}
-                    
                 />
 
             </form>
 
         </>
     )
+
 }
 
-export default NewDoc
+export default SavedDoc

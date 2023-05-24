@@ -40,3 +40,16 @@ export const saveNewCode = async (data) => {
         throw error.response.data
     }
 }
+
+
+// api to get saved document
+export const getSavedDocument = async (id) => {
+    try {
+        const response = await axios.get(`${URL}/${id}`)
+        return response.data
+        
+    } catch (error) {
+        throw error.response.data        
+    }
+
+}
