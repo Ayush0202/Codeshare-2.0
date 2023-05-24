@@ -63,9 +63,21 @@ const SavedDoc = () => {
         fetchData();
     }, [id]);
 
+
+    // timing functionality to change text if no document is found
+    const [loadingText, setLoadingText] = useState('Loading...')
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setLoadingText('No Document Found!')
+        }, 2500)
+
+        return () => clearTimeout(timeout)
+    }, [])
+
     
     if(!code) {
-        return <h1 className='saved-doc-loading-page'>Loading...</h1>
+        return <h1 className='saved-doc-loading-page'>{loadingText}</h1>
     }
 
     return (
