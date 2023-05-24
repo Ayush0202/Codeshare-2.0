@@ -36,7 +36,7 @@ const HomeNavbar = () => {
           {/* custom navbar for new document creation page */}
           {location.pathname === '/new' && (
             <Nav className="d-flex">
-            <button type='submit'>Save</button>
+            <button type='submit' style={{ background: 'none', border: 'none', padding: '0', textDecoration: 'none', cursor: 'pointer', color: "white" }}>Save</button>
           </Nav>
           )}
 
