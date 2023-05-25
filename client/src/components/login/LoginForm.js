@@ -62,8 +62,13 @@ const LoginForm = () => {
       
       console.log(error.message)
 
+      if(error.message === 'All fields must be filled') {
+        setAlertMessage('All fields must be filled')
+        setShowAlert(true)
+      }
+
       if(error.message === 'Invalid email or password') {
-        setAlertMessage('Invalid Email or Password');
+        setAlertMessage('Invalid Email or Password')
         setShowAlert(true);
       }
 

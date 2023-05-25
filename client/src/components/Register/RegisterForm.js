@@ -65,6 +65,11 @@ const RegisterForm = () => {
  
         console.log(error.message)
 
+        if(error.message === 'All field must be filled') {
+          setAlertMessage('All field must be filled')
+          setShowAlert(true)
+        }
+
         // custon validation error messages
         if(error.message === 'User already exists') {
           setAlertMessage('User already exists');

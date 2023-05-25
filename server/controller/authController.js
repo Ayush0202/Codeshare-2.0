@@ -2,6 +2,11 @@ const User = require('../models/user')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+const createToken = (_id) => {
+    return jwt.sign({_id}, process.env.SECRET_KEY, {expiresIn: '3d'})
+}
+
+
 const rootRouteMsg = (req, res) => {
     res.send('Hello From Server')
 }
@@ -19,10 +24,16 @@ const registerUser = async (req, res) => {
 
     try {
 
+        // all fields must be filled
+        if(!user.name || !user.email || !user.password) {
+            return res.status(400).json({message: 'All field must be filled'})
+        }
+
         // validating user data
 
         // checking for existing user
         const existingUser = await User.findOne({email: user.email})
+        
         if(existingUser) {
             return res.status(409).json({ message: 'User already exists' });
         }
@@ -54,9 +65,10 @@ const registerUser = async (req, res) => {
         })
         await newUser.save()
 
-        const token = jwt.sign({userId: newUser._id}, `${process.env.SECRET_KEY}`)
+        // create token 
+        const token = createToken(newUser._id)
 
-        res.status(201).json(newUser) // data saved successfully
+        res.status(201).json({newUser, token}) // data saved successfully
 
     } catch (error) {
         res.status(409).json({message: error.message})
@@ -75,12 +87,17 @@ const loginUser = async (req, res) => {
     const user = req.body;
 
     try {
+
+        // login form fields are empty
+        if(!user.email || !user.password) {
+            return res.status(400).json({message: 'All fields must be filled'})
+        }
         
         // finding user with given email
         const checkUser = await User.findOne({email: user.email})
 
         // if user is not present in database
-        if(!user) {
+        if(!checkUser) {
             return res.status(400).json({message: 'Invalid email or password'})
         }
 
@@ -94,10 +111,10 @@ const loginUser = async (req, res) => {
 
         // if password is correct
         // generate a JWT token with user's ID as the payload
-        const token = jwt.sign({userId: checkUser._id}, `${process.env.SECRET_KEY}`)
+        const token = createToken(checkUser._id)
 
         // return token to client
-        res.json({token})
+        res.json({checkUser, token})
 
     } catch (error) {
         
