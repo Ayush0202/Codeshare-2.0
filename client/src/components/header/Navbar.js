@@ -5,9 +5,17 @@ import Navbar from 'react-bootstrap/Navbar';
 import {Link, useLocation } from 'react-router-dom'
 import { NavDropdown } from 'react-bootstrap';
 
+import { useLogout } from '../../hooks/useLogout';
+
 const HomeNavbar = () => {
   
-  const location = useLocation();
+    const location = useLocation();
+
+    const { logout } = useLogout()
+
+    const handleClick = () => {
+        logout()
+    }
 
     return <>
         <Navbar bg="dark" variant="dark">
@@ -29,7 +37,7 @@ const HomeNavbar = () => {
                 <NavDropdown.Item as={Link} to="/new">New Codeshare</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes">Account Settings</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes">Delete Account</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/codes">Log Out</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/codes" onClick={handleClick} >Log Out</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           )}
