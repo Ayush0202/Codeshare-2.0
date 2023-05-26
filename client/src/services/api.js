@@ -36,11 +36,12 @@ export const loginUser = async (data) => {
 
 
 // api to create new document
-export const saveNewCode = async (data) => {
+export const saveNewCode = async (data, token) => {
     try {
         const response = await axios.post(`${URL}/new`, data, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         })
         return response.data
@@ -64,7 +65,7 @@ export const getSavedDocument = async (id) => {
 
 
 // api to get all documents
-export const getAllDocuments = async () => {
+export const getAllDocuments = async (token) => {
     try {
         const response = await axios.get(`${URL}/codes`)
         return response.data
@@ -76,9 +77,13 @@ export const getAllDocuments = async () => {
 
 
 // api to delete specific document
-export const deleteDocument = async (id) => {
+export const deleteDocument = async (id, token) => {
     try {
-        const respose = await axios.delete(`${URL}/${id}`)
+        const respose = await axios.delete(`${URL}/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return respose.data
     } catch (error) {
         throw error.response.data

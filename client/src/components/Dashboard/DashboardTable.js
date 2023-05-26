@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 // frontend api call
 import { getAllDocuments, deleteDocument } from '../../services/api'
 
+import {useAuthContext} from '../../hooks/useAuthContext'
+
 // styles for table
 const Container = styled(Table)`
     width: 70%;
@@ -45,6 +47,8 @@ const Alert = ({ message, onClose }) => {
 
 const DashboardTable = () => {
 
+    const { user } = useAuthContext()
+
     // alert message
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
@@ -75,7 +79,8 @@ const DashboardTable = () => {
     // function to delete saved document
     const deleteSavedDocument = async (id) => {
         try {
-            const response = await deleteDocument(id)
+            const authToken = user.token
+            const response = await deleteDocument(id, authToken)
             console.log(response)
             // message on success
             if(response.message === 'User Deleted Successfully') {

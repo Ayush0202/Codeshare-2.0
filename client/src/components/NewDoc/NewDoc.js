@@ -22,6 +22,8 @@ import Navbar from '../Header/Navbar'
 // api call
 import {saveNewCode} from '../../services/api'
 
+import { useAuthContext } from '../../hooks/useAuthContext';
+
 
 // default value for code
 const defaultValue = {
@@ -31,6 +33,7 @@ const defaultValue = {
 
 const NewDoc = () => {
 
+    const {user} = useAuthContext()
 
     // getting screen height to set height of the editor
     const [screenHeight, setScreenHeight] = useState(window.innerHeight)
@@ -67,8 +70,8 @@ const NewDoc = () => {
         e.preventDefault()
 
         try {
-
-            const response = await saveNewCode(code)
+            const authToken = user.token
+            const response = await saveNewCode(code, authToken)
             console.log(response)
             setCode(defaultValue)
             navigate(`/${response._id}`) // opening document after saving
