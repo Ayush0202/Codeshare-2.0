@@ -4,6 +4,8 @@ import {Link, useNavigate} from 'react-router-dom'
 
 import { loginUser } from '../../services/api'
 
+import { useAuthContext } from '../../hooks/useAuthContext'
+
 
 // default values of form 
 const defaultValue = {
@@ -39,6 +41,7 @@ const LoginForm = () => {
 
   const [user, setUser] = useState(defaultValue)
 
+  const { dispatch } = useAuthContext()
 
   // navigate after success
   const navigate = useNavigate()
@@ -57,6 +60,13 @@ const LoginForm = () => {
     try {
       const response = await loginUser(user)
       console.log(response)
+
+      // save data to local storage
+      localStorage.setItem('user', JSON.stringify(response))
+
+      // update the auth context
+      dispatch({type: 'LOGIN', payload: response})
+
       setUser(defaultValue)
       navigate('/codes')
 
