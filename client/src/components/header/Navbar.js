@@ -5,16 +5,20 @@ import Navbar from 'react-bootstrap/Navbar';
 import {Link, useLocation } from 'react-router-dom'
 import { NavDropdown } from 'react-bootstrap';
 
-import { useLogout } from '../../hooks/useLogout';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const HomeNavbar = () => {
   
     const location = useLocation();
 
-    const { logout } = useLogout()
+    const { dispatch } = useAuthContext()
 
     const handleClick = () => {
-        logout()
+        // remove user from storage
+        localStorage.removeItem('user')
+
+        // dispatch logout action
+        dispatch({type: 'LOGOUT'})
     }
 
     return <>
