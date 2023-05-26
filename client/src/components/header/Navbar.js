@@ -8,6 +8,8 @@ import { NavDropdown } from 'react-bootstrap';
 import { useAuthContext } from '../../hooks/useAuthContext';
 
 const HomeNavbar = () => {
+
+    const {user} = useAuthContext()
   
     const location = useLocation();
 
@@ -37,7 +39,7 @@ const HomeNavbar = () => {
           {/* custom navbar for dashboard */}
           {location.pathname === '/codes' && (
             <Nav className="d-flex">
-              <NavDropdown title="User Name" id="basic-nav-dropdown">
+                <NavDropdown title={user && user.checkUser ? user.checkUser.name : 'User'} id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/new">New Codeshare</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes">Account Settings</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes">Delete Account</NavDropdown.Item>
