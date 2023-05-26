@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import HomeBody from './components/HomePage/HomeBody'
 import Login from './components/Login/Login'
@@ -9,17 +9,22 @@ import NewDoc from './components/NewDoc/NewDoc'
 import Editor from './components/Editor/Editor'
 import SavedDoc from './components/SavedDoc/SavedDoc'
 
+import { useAuthContext } from './hooks/useAuthContext';
+
 function App() {
+
+  const { user } = useAuthContext()
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomeBody />}> </Route>
-        <Route path="/login" element={<Login />}> </Route>
-        <Route path="/register" element={<Register />}> </Route>
-        <Route path="/codes" element={<Dashboard />}> </Route>
-        <Route path='/new' element={<NewDoc />}></Route>
-        <Route path='/:id' element={<SavedDoc />}></Route>
-        <Route path='/editor' element={<Editor />}></Route>
+        <Route path="/" element={<HomeBody />} /> 
+        <Route path="/login" element={ !user ? <Login /> : <Navigate to='/codes' /> } /> 
+        <Route path="/register" element={ !user ? <Register /> : <Navigate to='/codes' /> } /> 
+        <Route path="/codes" element={ user ? <Dashboard /> : <Navigate to='/login' /> } />
+        <Route path='/new' element={ user ? <NewDoc /> : <Navigate to='/login' /> } />
+        <Route path='/:id' element={<SavedDoc />} />
+        <Route path='/editor' element={<Editor />} />
 
 
       </Routes>
