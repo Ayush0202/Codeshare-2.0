@@ -67,7 +67,11 @@ export const getSavedDocument = async (id) => {
 // api to get all documents
 export const getAllDocuments = async (token) => {
     try {
-        const response = await axios.get(`${URL}/codes`)
+        const response = await axios.get(`${URL}/codes`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return response.data
 
     } catch (error) {

@@ -63,13 +63,15 @@ const DashboardTable = () => {
 
     // getting all documents 
     useEffect(() => {
-        getAllSavedDocuments()
-    }, [])
+        if(user) {
+            getAllSavedDocuments(user.token)
+        }
+    }, [user])
 
     // getting document and storing them 
-    const getAllSavedDocuments = async () => {
+    const getAllSavedDocuments = async (token) => {
         try {
-            const response = await getAllDocuments()
+            const response = await getAllDocuments(token)
             setDocuments(response)
         } catch (error) {
             console.log(error)

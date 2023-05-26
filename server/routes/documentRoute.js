@@ -6,7 +6,7 @@ const requireAuth = require('../middleware/requireAuth')
 
 // require auth for all document routes
 
-router.get('/codes', documentController.getAllUserCodes) // dashboard
+router.get('/codes', requireAuth, documentController.getAllUserCodes) // dashboard
 router.post('/new', requireAuth , documentController.saveNewCode) // creating new document
 router.get('/:id', documentController.getSavedCode) // getting specific document
 router.delete('/:id', requireAuth, documentController.deleteSavedDocument) // deleting a specific document
