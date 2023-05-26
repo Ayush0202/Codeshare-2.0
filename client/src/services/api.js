@@ -6,7 +6,11 @@ const URL = 'http://localhost:5000'
 // api to register new user
 export const registerUser = async (data) => {
     try {
-        const response = await axios.post(`${URL}/register`, data)
+        const response = await axios.post(`${URL}/register`, data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         return response.data
 
     } catch (error) {
@@ -18,7 +22,11 @@ export const registerUser = async (data) => {
 // api to login existing user
 export const loginUser = async (data) => {
     try {
-        const response = await axios.post(`${URL}/login`, data)
+        const response = await axios.post(`${URL}/login`, data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         return response.data
 
     } catch (error) {
@@ -30,7 +38,11 @@ export const loginUser = async (data) => {
 // api to create new document
 export const saveNewCode = async (data) => {
     try {
-        const response = await axios.post(`${URL}/new`, data)
+        const response = await axios.post(`${URL}/new`, data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         return response.data
 
     } catch (error) {
