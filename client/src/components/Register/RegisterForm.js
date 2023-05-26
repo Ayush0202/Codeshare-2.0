@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { registerUser } from '../../services/api'
 
+import { useAuthContext } from '../../hooks/useAuthContext'
+
 import './RegisterForm.css'
 
 // default values of form 
@@ -40,6 +42,8 @@ const RegisterForm = () => {
   // adding data to form
   const [user, setUser] = useState(defaultValue)
 
+  const { dispatch } = useAuthContext()
+
   // navigate after success
   const navigate = useNavigate()
 
@@ -58,6 +62,13 @@ const RegisterForm = () => {
       
       const response = await registerUser(user)
       console.log(response)
+      
+      // save user to local storage
+      localStorage.setItem('user', JSON.stringify(response))
+
+      // update the auth context
+      dispatch({type: 'LOGIN', payload: response})
+
       setUser(defaultValue)
       navigate('/login')
 
