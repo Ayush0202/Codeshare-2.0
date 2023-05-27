@@ -8,6 +8,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import NewDoc from './components/NewDoc/NewDoc'
 import Editor from './components/Editor/Editor'
 import SavedDoc from './components/SavedDoc/SavedDoc'
+import AccountDelete from './components/Account/AccountDelete';
 
 import { useAuthContext } from './hooks/useAuthContext';
 
@@ -25,6 +26,7 @@ function App() {
         <Route path='/new' element={ user ? <NewDoc /> : <Navigate to='/login' /> } />
         <Route path='/:id' element={<SavedDoc />} />
         <Route path='/editor' element={<Editor />} />
+        <Route path='/delete' element={ user ? <AccountDelete /> : <Navigate to='/login' /> } />
 
 
       </Routes>

@@ -83,13 +83,30 @@ export const getAllDocuments = async (token) => {
 // api to delete specific document
 export const deleteDocument = async (id, token) => {
     try {
-        const respose = await axios.delete(`${URL}/${id}`, {
+        const response = await axios.delete(`${URL}/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
-        return respose.data
+        return response.data
     } catch (error) {
         throw error.response.data
     }
+}
+
+
+// api to delete user
+export const deleteUser = async (token) => {
+    try {
+        const response = await axios.delete(`${URL}/delete`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return response.data
+        
+    } catch (error) {
+        throw error.response.data
+    }
+
 }

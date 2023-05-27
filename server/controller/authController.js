@@ -1,4 +1,5 @@
 const User = require('../models/user')  
+const Document = require('../models/document')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -124,4 +125,29 @@ const loginUser = async (req, res) => {
 
 }
 
-module.exports = { rootRouteMsg, registerUserDisplay, registerUser, loginUserDisplay, loginUser }
+
+// deleting user from database
+const deleteUser = async (req, res) => {
+    
+    try {
+        
+        // getting user id of the user
+        const userId = req.user._id
+
+        // delete all document that have been created by the user
+        const deleteUserDocuments = await Document.deleteMany({user_id: userId})
+
+        // deleting user from database
+        const deleteUserDetails = await User.deleteOne({_id: userId})
+
+        res.status(200).json({message: 'User Deleted Succesfully'})
+        
+    } catch (error) {
+        // error in deleting user
+        res.status(500).json({message: error.message})
+        
+    }
+
+}
+
+module.exports = { rootRouteMsg, registerUserDisplay, registerUser, loginUserDisplay, loginUser, deleteUser }
