@@ -40,7 +40,7 @@ const AccountDelete = () => {
 
         <div className='account-delete-container'>
             <h1 className='account-delete-title'>Delete Account?</h1>
-            <p className='account-delete-para'>Deleting you account will remove all codeshares that you have saved. You will no longer be able to have access to them and you account will be deleted</p>
+            <p className='account-delete-para'>Deleting you account will remove all codeshares that you have saved. You will no longer be able to have access to them and your account will be deleted</p>
             <button className='account-delete-delete-button' onClick={onClickHandle}>Yes</button>
             <Link to='/codes'><button className='account-delete-cancel-button'>No</button></Link>
         </div>

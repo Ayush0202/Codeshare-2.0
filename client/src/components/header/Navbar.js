@@ -7,6 +7,8 @@ import { NavDropdown } from 'react-bootstrap';
 
 import { useAuthContext } from '../../hooks/useAuthContext';
 
+import './Navbar.css'
+
 const HomeNavbar = () => {
 
     const {user} = useAuthContext()
@@ -25,10 +27,10 @@ const HomeNavbar = () => {
 
     return <>
         <Navbar bg="dark" variant="dark">
-        <Container>
+        <Container className='navbar-container'>
           <Navbar.Brand as={Link} to="/">Codeshare</Navbar.Brand>
           
-          {/* showing login and registration button only on home page */}
+          {/* custom navbar for home page if user is not logged in */}
           {location.pathname === '/' && !user && (
             <Nav className="d-flex">
             <Nav.Link as={Link} to="/register">Register</Nav.Link>
@@ -36,12 +38,12 @@ const HomeNavbar = () => {
           </Nav>
           )}
 
-          {/* custom navbar for dashboard */}
+          {/* custom navbar for home page if user if logged in */}
           {location.pathname === '/' && user && (
             <Nav className="d-flex">
-                <NavDropdown title={user && (user.checkUser) ? user.checkUser.name : 'User'} id="basic-nav-dropdown">
+                <NavDropdown title={(user && user.newUser) ? user.newUser.name : (user && user.checkUser) ? user.checkUser.name : 'User' } id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/new">New Codeshare</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/codes">Your Codeshare</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/codes">Your Codeshares</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes">Account Settings</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/delete">Delete Account</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes" onClick={handleClick} >Log Out</NavDropdown.Item>
@@ -52,7 +54,7 @@ const HomeNavbar = () => {
           {/* custom navbar for dashboard */}
           {location.pathname === '/codes' && user && (
             <Nav className="d-flex">
-                <NavDropdown title={user && user.checkUser ? user.checkUser.name : 'User'} id="basic-nav-dropdown">
+                <NavDropdown title={(user && user.newUser) ? user.newUser.name : (user && user.checkUser) ? user.checkUser.name : 'User' } id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/new">New Codeshare</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes">Account Settings</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/delete">Delete Account</NavDropdown.Item>

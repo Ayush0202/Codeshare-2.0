@@ -8,7 +8,7 @@
   }
   
   .dashboard-button {
-    display: inline-block;
+    display:inline-block;
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
@@ -26,6 +26,11 @@
   
   /* Media query for responsiveness */
   @media screen and (max-width: 768px) {
+
+    .dashboard-container {
+      padding: 10px;
+    }
+
     .dashboard-heading {
       font-size: 20px;
     }
