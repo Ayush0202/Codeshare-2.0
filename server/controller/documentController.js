@@ -5,7 +5,11 @@ const Document = require('../models/document')
 // api to get all codes of a user on dashboard
 const getAllUserCodes = async (req, res) => {
     try {
-        const document = await Document.find({}).sort({ createdAt: -1 })
+
+        // getting user id from req as it has been stored in middleware
+        const userId = req.user._id
+
+        const document = await Document.find({user_id: userId}).sort({ createdAt: -1 })
         // console.log(document)
         res.status(200).json(document)
 
@@ -22,9 +26,13 @@ const saveNewCode = async (req, res) => {
     const data = req.body
 
     try {
+
+        const userId = req.user._id
+
         // creating a new document
         const newDocument = new Document({
-            value: data.codeValue
+            value: data.codeValue,
+            user_id: userId
         })
 
         // saving new document

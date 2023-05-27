@@ -89,7 +89,7 @@ const DashboardTable = () => {
                 setAlertMessage('Document Deleted');
                 setShowAlert(true);
             }
-            getAllSavedDocuments()
+            getAllSavedDocuments(authToken)
 
         } catch (error) {
             console.log(error);

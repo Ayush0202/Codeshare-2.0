@@ -9,6 +9,10 @@ const documentSchema = mongoose.Schema({
         type: Date,
         immutable: true, // cannot be changed
         default: () => Date.now() // saves date everytime document is added
+    },
+    user_id: {
+        type: String, 
+        required: true
     }
 })
 
