@@ -8,16 +8,6 @@ const createToken = (_id) => {
 }
 
 
-const rootRouteMsg = (req, res) => {
-    res.send('Hello From Server')
-}
-
-
-const registerUserDisplay = (req, res) => {
-    res.send('Register Page - Backend')
-}
-
-
 // registering a new user
 const registerUser = async (req, res) => {
     
@@ -74,11 +64,6 @@ const registerUser = async (req, res) => {
     } catch (error) {
         res.status(409).json({message: error.message})
     }
-}
-
-
-const loginUserDisplay = (req, res) => {
-    res.send('Hello from Server Login route')
 }
 
 
@@ -150,4 +135,28 @@ const deleteUser = async (req, res) => {
 
 }
 
-module.exports = { rootRouteMsg, registerUserDisplay, registerUser, loginUserDisplay, loginUser, deleteUser }
+
+// updating details of user
+const updateUser = async (req, res) => {
+
+    // getting user from client
+    const editUser = req.body
+
+    // creating a new user in database
+    const newUser = new User(editUser)
+
+    // getting user id from authRequire
+    const userId = req.user._id
+
+    try {
+        // updating data
+        await User.updateOne({_id: userId}, newUser)
+        res.status(201).json(newUser)
+
+    } catch (error) {
+        res.status(409).json({message: error.message})
+    }
+}
+
+
+module.exports = { registerUser, loginUser, deleteUser, updateUser }
