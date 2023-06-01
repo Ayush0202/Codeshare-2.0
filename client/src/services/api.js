@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const URL = 'https://codeshare-y9io.onrender.com/'
+const URL = 'https://codeshare-y9io.onrender.com'
 
 
 // api to register new user
