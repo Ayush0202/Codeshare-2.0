@@ -25,6 +25,6 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS
 app.use('/', authRoute)
 app.use('/', documentRoute)
 
-app.listen(5000, (req, res) => {
+app.listen(5000 || process.env.PORT, (req, res) => {
     console.log('Server running on port 5000')
 })
