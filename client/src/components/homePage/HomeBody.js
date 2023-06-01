@@ -7,14 +7,14 @@ import './HomeBodyStyle.css'
 
 const HomeBody = () => {
 
-    return <>
+    return (<>
 
         <Navbar />
         <HomeMain />
         <HomeFeatures />
         <Footer />
 
-    </>
+    </>)
 
 }
 

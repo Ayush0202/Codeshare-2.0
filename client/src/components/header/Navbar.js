@@ -25,7 +25,7 @@ const HomeNavbar = () => {
         dispatch({type: 'LOGOUT'})
     }
 
-    return <>
+    return (<>
         <Navbar className='navbar-color' variant="dark">
         <Container className='navbar-container'>
           <Navbar.Brand as={Link} to="/">Codeshare</Navbar.Brand>
@@ -70,7 +70,7 @@ const HomeNavbar = () => {
 
         </Container>
       </Navbar>
-    </>
+    </>)
 }
 
 export default HomeNavbar

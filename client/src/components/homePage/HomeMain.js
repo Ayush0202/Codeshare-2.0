@@ -7,7 +7,7 @@ const HomeMain = () => {
 
     const {user} = useAuthContext()
 
-    return <>
+    return (<>
         <div className=" wrapper container-fluid">
             <div className="home home-page-text">
                 <h1 className="main-page-heading">Share Code with <br/>Developers</h1>
@@ -27,7 +27,7 @@ const HomeMain = () => {
             </div>
         </div>
 
-    </>
+    </>)
 
 }
 

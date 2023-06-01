@@ -5,7 +5,7 @@ import RegisterForm from "./RegisterForm";
 import './Register.css'
 
 const Register = () => {
-    return <>
+    return (<>
 
         <Navbar />
 
@@ -13,7 +13,7 @@ const Register = () => {
 
         <RegisterForm />
 
-    </>
+    </>)
 
 }
 
