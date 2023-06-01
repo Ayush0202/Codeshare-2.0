@@ -14,9 +14,6 @@ const HomeBody = () => {
         <HomeFeatures />
         <Footer />
 
-
-
-
     </>
 
 }

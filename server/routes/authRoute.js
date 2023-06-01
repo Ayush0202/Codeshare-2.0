@@ -7,6 +7,5 @@ const authRequire = require('../middleware/requireAuth')
 router.post('/register', authController.registerUser)
 router.post('/login', authController.loginUser)
 router.delete('/delete', authRequire, authController.deleteUser)
-router.put('/settings', authRequire, authController.updateUser)
 
 module.exports = router

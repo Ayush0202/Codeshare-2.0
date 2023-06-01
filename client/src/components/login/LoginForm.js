@@ -86,15 +86,7 @@ const LoginForm = () => {
 
     }
 
-
-
-
-
   }
-
-
-
-
 
   return (
     <div className='form-container'>

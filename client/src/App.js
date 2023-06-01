@@ -27,8 +27,6 @@ function App() {
         <Route path='/:id' element={<SavedDoc />} />
         <Route path='/editor' element={<Editor />} />
         <Route path='/delete' element={ user ? <AccountDelete /> : <Navigate to='/login' /> } />
-
-
       </Routes>
     </BrowserRouter>
   );

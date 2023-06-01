@@ -136,27 +136,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-// updating details of user
-const updateUser = async (req, res) => {
-
-    // getting user from client
-    const editUser = req.body
-
-    // creating a new user in database
-    const newUser = new User(editUser)
-
-    // getting user id from authRequire
-    const userId = req.user._id
-
-    try {
-        // updating data
-        await User.updateOne({_id: userId}, newUser)
-        res.status(201).json(newUser)
-
-    } catch (error) {
-        res.status(409).json({message: error.message})
-    }
-}
-
-
-module.exports = { registerUser, loginUser, deleteUser, updateUser }
+module.exports = { registerUser, loginUser, deleteUser }

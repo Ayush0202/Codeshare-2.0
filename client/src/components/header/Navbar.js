@@ -26,7 +26,7 @@ const HomeNavbar = () => {
     }
 
     return <>
-        <Navbar bg="dark" variant="dark">
+        <Navbar className='navbar-color' variant="dark">
         <Container className='navbar-container'>
           <Navbar.Brand as={Link} to="/">Codeshare</Navbar.Brand>
           
@@ -44,7 +44,6 @@ const HomeNavbar = () => {
                 <NavDropdown title={(user && user.newUser) ? user.newUser.name : (user && user.checkUser) ? user.checkUser.name : 'User' } id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/new">New Codeshare</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes">Your Codeshares</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/codes">Account Settings</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/delete">Delete Account</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/codes" onClick={handleClick} >Log Out</NavDropdown.Item>
               </NavDropdown>
@@ -56,7 +55,6 @@ const HomeNavbar = () => {
             <Nav className="d-flex">
                 <NavDropdown title={(user && user.newUser) ? user.newUser.name : (user && user.checkUser) ? user.checkUser.name : 'User' } id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/new">New Codeshare</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/codes">Account Settings</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/delete">Delete Account</NavDropdown.Item>
                 <NavDropdown.Item as={Link} onClick={handleClick} >Log Out</NavDropdown.Item>
               </NavDropdown>
