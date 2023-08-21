@@ -5,6 +5,8 @@ Codeshare is a code sharing platform built using MERN `(MongoDB, Express.js, Rea
 
 Project can be viewed [here](https://codeshare2-eight.vercel.app/)
 
+Codeshare 1.0 which was made using `EJS, Node.js, Express.js, MongoDB` can be viewed [here](https://github.com/Ayush0202/Codeshare). 
+
 ## Features ##
 
 - **Document Management** : Users can create, edit and delete documents
